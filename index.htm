@@ -1,0 +1,1832 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"Segoe UI Emoji";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoChpDefault
+	{font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=ES-MX style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><span lang=EN-US>&lt;!DOCTYPE html&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;html lang=&quot;es&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;head&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;meta
+charset=&quot;UTF-8&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;meta
+name=&quot;viewport&quot; content=&quot;width=device-width,
+initial-scale=1.0&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; </span>&lt;title&gt;Dashboard
+de Monitoreo de Red - ATLAS Mayo 2025&lt;/title&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; <span lang=EN-US>&lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;script
+src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;link
+rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;link
+rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot;
+crossorigin&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;link
+href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap&quot;
+rel=&quot;stylesheet&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; </span>&lt;!-- Chosen
+Palette: Calm Neutral --&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &lt;!-- Application Structure Plan: He
+diseñado una aplicación de una sola página con navegación por pestañas
+(Resumen, Disponibilidad, Rendimiento, Alertas, Recomendaciones). Esta
+estructura permite al usuario pasar de una vista general de alto nivel a un
+análisis detallado de áreas específicas. A diferencia del informe lineal, esta
+arquitectura temática (centrada en la tarea del usuario) facilita la búsqueda
+de información relevante. El flujo comienza con KPIs clave, luego permite
+explorar datos específicos a través de gráficos y tablas interactivas, y
+finaliza con acciones concretas. Esta organización es más intuitiva tanto para
+perfiles técnicos como gerenciales, ya que responde directamente a preguntas
+como &quot;¿Cómo está la red?&quot;, &quot;¿Qué componentes tienen baja
+disponibilidad?&quot; y &quot;¿Cuáles son los problemas más urgentes?&quot;.
+--&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &lt;!-- Visualization &amp; Content Choices: </p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; - Resumen General -&gt; Informar
+-&gt; Tarjetas de KPI y Gráficos de Dona -&gt; Hover para detalles -&gt;
+Proporciona un vistazo rápido y visual del estado general de la red -&gt;
+Chart.js, HTML/Tailwind.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; - Disponibilidad por Dispositivo
+-&gt; Comparar -&gt; Gráfico de Barras Horizontales -&gt; Filtros interactivos
+por categoría (Switches, Routers, etc.) -&gt; Permite una comparación clara de
+la disponibilidad entre múltiples dispositivos, manejando eficientemente
+nombres largos -&gt; Chart.js.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; - Rendimiento de Recursos
+(CPU/Memoria/Disco) -&gt; Comparar -&gt; Gráfico de Barras Horizontales -&gt;
+Filtros por recurso -&gt; Facilita la identificación de dispositivos con
+sobrecarga o recursos limitados -&gt; Chart.js.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; - Alertas Críticas (Servicios
+detenidos, Temperatura alta, etc.) -&gt; Organizar/Informar -&gt; Listas
+colapsables y tablas interactivas -&gt; Click para expandir/ver detalles -&gt;
+Organiza una gran cantidad de información crítica de manera limpia y sin
+abrumar al usuario, permitiendo enfocarse en una categoría de alerta a la vez
+-&gt; HTML/Tailwind + JS.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; - Recomendaciones -&gt; Informar
+-&gt; Bloques de texto estáticos y estructurados -&gt; Ninguna interacción
+-&gt; Presenta las acciones a seguir de manera clara y directa.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; <span lang=EN-US>--&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;!-- CONFIRMATION: NO SVG
+graphics used. NO Mermaid JS used. --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;style&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; body {
+font-family: 'Inter', sans-serif; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; .active-tab { </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+border-bottom-color: #0284c7; /* sky-600 */</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+color: #0284c7;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+font-weight: 600;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; .tab-content {
+display: none; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp;
+.tab-content.active { display: block; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp;
+.chart-container {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+position: relative;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+width: 100%;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+margin-left: auto;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+margin-right: auto;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+padding: 1rem;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; background-color:
+white;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+border-radius: 0.5rem;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; @media
+(min-width: 768px) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+.chart-container {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; height: 450px;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;/style&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;/head&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;body class=&quot;bg-slate-50
+text-slate-800&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;div class=&quot;container
+mx-auto p-4 md:p-8&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &lt;header
+class=&quot;text-center mb-8&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;h1
+class=&quot;text-3xl md:text-4xl font-bold text-slate-900&quot;&gt;Informe
+Interactivo de Monitoreo de Red&lt;/h1&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p
+class=&quot;text-xl text-slate-600 mt-2&quot;&gt;Transportadora de Valores
+ATLAS LTDA - Mayo 2025&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;/header&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &lt;nav
+class=&quot;flex border-b-2 border-slate-200 mb-8 overflow-x-auto&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;button data-target=&quot;overview&quot; class=&quot;nav-tab active-tab px-4
+py-3 text-sm md:text-base whitespace-nowrap -mb-0.5&quot;&gt;Resumen
+General&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;button data-target=&quot;availability&quot; class=&quot;nav-tab px-4 py-3
+text-sm md:text-base whitespace-nowrap text-slate-500
+-mb-0.5&quot;&gt;Disponibilidad&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;button data-target=&quot;performance&quot; class=&quot;nav-tab px-4 py-3
+text-sm md:text-base whitespace-nowrap text-slate-500
+-mb-0.5&quot;&gt;Rendimiento y Salud&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;button data-target=&quot;alerts&quot; class=&quot;nav-tab px-4 py-3 text-sm
+md:text-base whitespace-nowrap text-slate-500 -mb-0.5&quot;&gt;Alertas
+Críticas&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;button data-target=&quot;recommendations&quot; class=&quot;nav-tab px-4
+py-3 text-sm md:text-base whitespace-nowrap text-slate-500
+-mb-0.5&quot;&gt;Recomendaciones&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/nav&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &lt;main&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- Resumen General --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;section id=&quot;overview&quot; class=&quot;tab-content active&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;mb-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 class=&quot;text-2xl font-bold
+text-slate-900 mb-2&quot;&gt;Estado General de la Red&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>Esta sección ofrece una vista
+panorámica de la salud de su infraestructura durante mayo de 2025. Los
+indicadores clave muestran el estado general de disponibilidad y las alertas
+más urgentes, permitiendo una evaluación rápida del rendimiento y la estabilidad
+de la red.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2
+lg:grid-cols-4 gap-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow-md flex flex-col items-center justify-center text-center&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;text-lg
+font-semibold text-slate-700 mb-2&quot;&gt;Disponibilidad Servidores&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;w-32
+h-32&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas
+id=&quot;serversAvailabilityChart&quot;&gt;&lt;/canvas&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow-md flex flex-col items-center justify-center text-center&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;text-lg
+font-semibold text-slate-700 mb-2&quot;&gt;Disponibilidad Enlaces&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;w-32
+h-32&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas
+id=&quot;linksAvailabilityChart&quot;&gt;&lt;/canvas&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow-md flex flex-col items-center justify-center text-center&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;text-lg font-semibold
+text-slate-700 mb-2&quot;&gt;Dispositivos Críticos&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-5xl font-bold
+text-amber-500&quot;&gt;6&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-slate-500
+mt-2&quot;&gt;Con disponibilidad &lt; 95%&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow-md flex flex-col items-center justify-center text-center&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;text-lg
+font-semibold text-slate-700 mb-2&quot;&gt;Alertas Urgentes&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-5xl font-bold
+text-red-500&quot;&gt;20+&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;p
+class=&quot;text-slate-500 mt-2&quot;&gt;Disco, servicios y
+temperatura&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;mt-8&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;chart-container&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;text-xl font-bold
+text-center mb-4&quot;&gt;Dispositivos con Menor Disponibilidad&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas
+id=&quot;lowAvailabilityChart&quot;&gt;&lt;/canvas&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- Disponibilidad --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;section id=&quot;availability&quot; class=&quot;tab-content&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;mb-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 class=&quot;text-2xl font-bold
+text-slate-900 mb-2&quot;&gt;Análisis de Disponibilidad&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;p class=&quot;text-slate-600&quot;&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; Explore en detalle la disponibilidad (Uptime) de
+los diferentes componentes de su red. La disponibilidad es un indicador crucial
+que refleja el tiempo que un dispositivo ha estado operativo y accesible. Puede
+filtrar por categoría para comparar el rendimiento entre equipos similares.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;flex justify-center space-x-2 mb-6
+bg-slate-100 p-2 rounded-lg&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-availability
+bg-sky-600 text-white py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;switches&quot;&gt;Switches&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-availability
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;routers&quot;&gt;Routers&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-availability
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;servers&quot;&gt;Servidores&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-availability
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;links&quot;&gt;Enlaces&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;chart-container&quot; style=&quot;height:
+600px;&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas
+id=&quot;availabilityDetailChart&quot;&gt;&lt;/canvas&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- Rendimiento y Salud --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;section id=&quot;performance&quot; class=&quot;tab-content&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;&lt;div class=&quot;mb-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;h2 class=&quot;text-2xl font-bold
+text-slate-900 mb-2&quot;&gt;Análisis de Rendimiento y Salud&lt;/h2&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;Esta sección muestra el estado de los recursos clave
+de su infraestructura, como el uso de CPU, memoria y espacio en disco, así como
+la temperatura de los equipos. Monitorear estos indicadores es fundamental para
+prevenir cuellos de botella, optimizar el rendimiento y evitar fallos de
+hardware.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;&lt;div class=&quot;flex justify-center space-x-2 mb-6
+bg-slate-100 p-2 rounded-lg&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-performance
+bg-sky-600 text-white py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;disk&quot;&gt;Uso de Disco&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-performance
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;memory&quot;&gt;Uso de Memoria&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-performance
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;cpu&quot;&gt;Uso de CPU&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;filter-btn-performance
+bg-white text-slate-700 py-2 px-4 rounded-md shadow&quot;
+data-type=&quot;temp&quot;&gt;Temperatura Switches&lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;chart-container&quot; style=&quot;height:
+600px;&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas
+id=&quot;performanceDetailChart&quot;&gt;&lt;/canvas&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- Alertas Críticas --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;section id=&quot;alerts&quot; class=&quot;tab-content&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;mb-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;h2 class=&quot;text-2xl font-bold
+text-slate-900 mb-2&quot;&gt;Alertas Críticas y Problemas Detectados&lt;/h2&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; Aquí se consolidan todas las alertas y problemas
+críticos identificados durante el mes. Atender estas alertas es prioritario
+para garantizar la estabilidad, seguridad y correcto funcionamiento de la red.
+Expanda cada categoría para ver los detalles de los dispositivos afectados.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;space-y-4&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button
+class=&quot;accordion-toggle w-full flex justify-between items-center p-4
+text-left font-semibold&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;span&gt;<span
+style='font-family:"Segoe UI Emoji",sans-serif'>&#128308;</span> Espacio en
+Disco Crítico (&gt;90% de uso)&lt;/span&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;span
+class=&quot;transform transition-transform duration-200&quot;&gt;</span><span
+lang=EN-US style='font-family:"Arial",sans-serif'>&#9660;</span><span
+lang=EN-US>&lt;/span&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;accordion-content
+hidden p-4 border-t border-slate-200&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul
+class=&quot;list-disc list-inside space-y-2 text-slate-700&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;li&gt;SRV_WIN_HYPERV_FILESERVER
+(Varias unidades)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SRV_WIN_TEST_MERLIN (Unidad E: APLICACIONES)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SRV_WIN_BACKUP (Unidad E:)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;li&gt;SRV_EC2_CASH4YOU
+(Disco C:)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SRV_LINUX_GLPI_WEB (/)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SRV_WIN_TEST_HP_DL160_PRB2 (Unidad C:)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;li&gt;SRV_WIN_CLUSTER_SQL_TMD_NODO_1
+(Unidad C:)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;/ul&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button
+class=&quot;accordion-toggle w-full flex justify-between items-center p-4
+text-left font-semibold&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>&lt;span&gt;<span
+style='font-family:"Segoe UI Emoji",sans-serif'>&#128308;</span> Dispositivos
+Fuera de Línea&lt;/span&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;span
+class=&quot;transform transition-transform duration-200&quot;&gt;</span><span
+lang=EN-US style='font-family:"Arial",sans-serif'>&#9660;</span><span
+lang=EN-US>&lt;/span&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;div
+class=&quot;accordion-content hidden p-4 border-t border-slate-200&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul
+class=&quot;list-disc list-inside space-y-2 text-slate-700&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;li&gt;ROUTER_CALL_PPL
+(100% pérdida de paquetes)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;AP_ATV_SAN_ANDRES_ADMIN (100% pérdida ICMP)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;AP_ATV_TUMACO_ADMIN (100% pérdida ICMP)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;/ul&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;button
+class=&quot;accordion-toggle w-full flex justify-between items-center p-4 text-left
+font-semibold&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>&lt;span&gt;<span
+style='font-family:"Segoe UI Emoji",sans-serif'>&#128992;</span> Servicios
+Esenciales Detenidos&lt;/span&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;span
+class=&quot;transform transition-transform duration-200&quot;&gt;</span><span
+lang=EN-US style='font-family:"Arial",sans-serif'>&#9660;</span><span
+lang=EN-US>&lt;/span&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;div
+class=&quot;accordion-content hidden p-4 border-t border-slate-200&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul
+class=&quot;list-disc list-inside space-y-2 text-slate-700&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SRV_WIN_HYPERV_FILESERVER (KDService, Hyper-V Heartbeat, SQL
+Server)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;li&gt;SRV_WIN_TEST_MERLIN
+(13 servicios de inicio automático)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;li&gt;SRV_WIN_BACKUP
+(IBM Automated Tape Library)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;li&gt;Varios
+servidores con servicios detenidos (RabbitMQ, Eset, Zabbix Agent,
+etc.)&lt;/li&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;/ul&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;div class=&quot;bg-white rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;button
+class=&quot;accordion-toggle w-full flex justify-between items-center p-4
+text-left font-semibold&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>&lt;span&gt;<span
+style='font-family:"Segoe UI Emoji",sans-serif'>&#128992;</span> Temperatura
+Elevada en Switches (&gt;50°C)&lt;/span&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;span
+class=&quot;transform transition-transform duration-200&quot;&gt;</span><span
+lang=EN-US style='font-family:"Arial",sans-serif'>&#9660;</span><span
+lang=EN-US>&lt;/span&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/button&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;div
+class=&quot;accordion-content hidden p-4 border-t border-slate-200&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&lt;p
+class=&quot;text-slate-700 mb-2&quot;&gt;Un total de 14 switches registraron
+temperaturas por encima del umbral recomendado, lo que indica un riesgo de
+fallo de hardware. Algunos de los más afectados son:&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul class=&quot;list-disc
+list-inside space-y-2 text-slate-700&quot;&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>&lt;li&gt;SW_BOG_TVA_9
+(61°C)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SW_MED_TVA_4 (60°C)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SW_BOG_TVA_6 (59°C)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;STORAGE_NAS_SERVIDORES_IF2 (59°C)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;li&gt;SW_BOG_TVA_8 (58°C)&lt;/li&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- Recomendaciones --&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;section id=&quot;recommendations&quot; class=&quot;tab-content&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;mb-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 class=&quot;text-2xl font-bold
+text-slate-900 mb-2&quot;&gt;Recomendaciones Estratégicas&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;p class=&quot;text-slate-600&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>Basado en los hallazgos de este
+mes, presentamos un plan de acción para fortalecer su infraestructura,
+optimizar el rendimiento y mitigar los riesgos identificados. Estas acciones
+son clave para garantizar la continuidad y seguridad de sus operaciones.</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/p&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2
+gap-6&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;font-bold text-lg
+mb-2 text-sky-700&quot;&gt;1. </span>Priorizar Conectividad en Sedes
+Críticas&lt;/h3&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p
+class=&quot;text-slate-600&quot;&gt;Investigar y resolver con urgencia las
+fallas de conectividad en la sede de **San Andrés** (afectando Switch,
+Biométrico y MPLS) y los dispositivos fuera de línea en **Ipiales**, **Call** y
+**Tumaco**. Esto es vital para restaurar la visibilidad del monitoreo y la
+operatividad completa.&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;font-bold text-lg
+mb-2 text-sky-700&quot;&gt;2. </span>Optimización Urgente de
+Recursos&lt;/h3&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;Liberar
+espacio en disco en los 7 servidores con niveles críticos (&gt;90%) para evitar
+fallos de sistema. Evaluar la ampliación de memoria RAM en servidores con uso
+elevado para mejorar el rendimiento de las aplicaciones.&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;font-bold text-lg
+mb-2 text-sky-700&quot;&gt;3. </span>Restauración de Servicios y
+Monitoreo&lt;/h3&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;Asegurar
+la reactivación y configuración de inicio automático para todos los servicios
+esenciales detenidos, especialmente en **SRV_WIN_HYPERV_FILESERVER**,
+**SRV_WIN_TEST_MERLIN** y **SRV_WIN_BACKUP**. Restablecer los agentes Zabbix
+inactivos para recuperar la visibilidad completa del monitoreo.&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;bg-white p-6 rounded-lg
+shadow&quot;&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 class=&quot;font-bold text-lg
+mb-2 text-sky-700&quot;&gt;4. </span>Gestión de Salud del Hardware&lt;/h3&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;p class=&quot;text-slate-600&quot;&gt;Realizar
+una revisión física de la ventilación y limpieza de los 14 switches con
+temperaturas elevadas para prevenir daños por sobrecalentamiento. Corregir las
+configuraciones de interfaz en modo half-duplex para evitar la degradación de
+la velocidad de la red.&lt;/p&gt;</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; <span lang=EN-US>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/main&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;script&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp;
+document.addEventListener('DOMContentLoaded', function () {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// Data from the report</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const appData = {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; availability: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; switches: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SWITCH_CORE_DATACENTER_PPAL&quot;, value: 99.99 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SW_BARRANQUILLA_TVA_1&quot;, value: 99.98 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_BOG_TVA_10&quot;,
+value: 99.97 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_MED_TVA_3&quot;,
+value: 99.85 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SWITCH_SAN_ANDRES&quot;, value: 62.30 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SW_DC_ALTERNO_HUAWEI&quot;, value: 99.99 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; routers: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;ROUTER_BOG_PRINCIPAL&quot;, value: 99.98 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;ROUTER_MED_PRINCIPAL&quot;, value: 99.97 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;ROUTER_CALI_PRINCIPAL&quot;, value: 99.96 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;ROUTER_IPIALES_AZTECA&quot;,
+value: 93.56 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;ROUTER_CALL_PPL&quot;,
+value: 0.00 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; servers: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_AD_AZURE&quot;,
+value: 99.99 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_AD_PPAL&quot;,
+value: 99.98 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_HYPERV_FILESERVER&quot;, value: 99.85 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_TEST_MERLIN&quot;, value: 99.83 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_EC2_AWS_DLP&quot;,
+value: 99.99 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; links: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;MPLS_CLARO_PRINCIPAL_BOGOTA&quot;, value: 99.98 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;INTERNET_TIGO_BACKUP_CALI&quot;, value: 99.89 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;MPLS_CLARO_PRINCIPAL_CARTAGENA&quot;, value: 66.67 }, // 33.33% loss
+-&gt; 66.67% availability</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;MPLS_CLARO_PRINCIPAL_SAN_ANDRES&quot;, value: 87.28 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ]</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; performance: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; disk: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_HYPERV_FILESERVER&quot;, value: 95 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_TEST_MERLIN&quot;, value: 92 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_BACKUP&quot;,
+value: 91 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_EC2_CASH4YOU&quot;,
+value: 90 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;STORAGE_NAS_BACKUPS_TEST_IF1&quot;, value: 80 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_AD_AZURE&quot;,
+value: 25 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; memory: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_EC2_AWS_DLP&quot;,
+value: 70.98 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_CALI_TVA_5&quot;,
+value: 65.57 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_PROMETEO_DECRENTAX&quot;, value: 60 }, // Example value</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_SCANNER_SERVER&quot;, value: 55 }, // Example value</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_AD_PPAL&quot;,
+value: 30 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; cpu: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_CONTAINER_ATV&quot;,
+value: 33 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SRV_WIN_PROMETEO_DECRENTAX&quot;, value: 15.97 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_WIN_AD_PPAL&quot;,
+value: 12 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SRV_EC2_AWS_DLP&quot;,
+value: 10 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; temp: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_BOG_TVA_9&quot;,
+value: 61 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_MED_TVA_4&quot;,
+value: 60 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_BOG_TVA_6&quot;,
+value: 59 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;STORAGE_NAS_SERVIDORES_IF2&quot;, value: 59 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SW_BOG_TVA_8&quot;,
+value: 58 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;SW_BUCARAMANGA_TVA_2&quot;, value: 55 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ]</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; lowAvailability: [</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;BIOMETRICO_SAN_ANDRES_CHEKIN&quot;,
+value: 27.24 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;SWITCH_SAN_ANDRES&quot;, value: 62.30
+},</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;MPLS_CLARO_PRINCIPAL_CARTAGENA&quot;,
+value: 66.67 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; { name:
+&quot;MPLS_CLARO_PRINCIPAL_SAN_ANDRES&quot;, value: 87.28 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; { name: &quot;ROUTER_IPIALES_AZTECA&quot;, value:
+93.56 },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; ]</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+};</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// Chart instances</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+let availabilityDetailChart, performanceDetailChart;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// --- Chart Helper Functions ---</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const createDonutChart = (ctx, label, value, color) =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; return new Chart(ctx, {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; type: 'doughnut',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; data: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: [label, ''],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: [{</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: [value, 100 -
+value],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; backgroundColor:
+[color, '#e5e7eb'],</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderWidth: 0</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; options: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; responsive: true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; maintainAspectRatio: false,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cutout: '70%',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; plugins: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; legend: { display:
+false },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tooltip: { enabled:
+false },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; title: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; display:
+true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text:
+`${value.toFixed(2)}%`,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; position:
+'bottom',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; font: {
+size: 16, weight: 'bold' },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color:
+'#1e293b',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; padding:
+{ top: -40 }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+};</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const createHorizontalBarChart = (ctx, data, unit, max = 100) =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; return new Chart(ctx, {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; type: 'bar',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; data: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: data.map(d =&gt;
+d.name.length &gt; 25 ? d.name.substring(0, 25) + '...' : d.name),</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: [{</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label: `Valor
+(${unit})`,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: data.map(d =&gt;
+d.value),</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; backgroundColor:
+data.map(d =&gt; d.value &lt; 80 ? '#38bdf8' : (d.value &lt; 95 ? '#f59e0b' :
+'#ef4444')),</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderColor: '#ffffff',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderWidth: 2,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderRadius: 4</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; options: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; indexAxis: 'y',</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; responsive: true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; maintainAspectRatio: false,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scales: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; x: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+beginAtZero: true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max: max,</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>grid:
+{</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color:
+'#e2e8f0'</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; y: {</p>
+
+<p class=MsoNormal>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span lang=EN-US>grid:
+{</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; display: false</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; plugins: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; legend: { display:
+false },</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tooltip: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+callbacks: {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; label: function(context) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; let label = context.dataset.label || '';</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; if (label) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label += ': ';</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; if (context.parsed.x !== null) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label += `${context.parsed.x.toFixed(2)}
+${unit}`;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; return label;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+};</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// --- Initial Chart Rendering ---</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+function initCharts() {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; // Overview Charts</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; createDonutChart(document.getElementById('serversAvailabilityChart').getContext('2d'),
+'Servidores', 99.8, '#059669');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp;
+createDonutChart(document.getElementById('linksAvailabilityChart').getContext('2d'),
+'Enlaces', 95.7, '#059669');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; const lowAvailabilityCtx =
+document.getElementById('lowAvailabilityChart').getContext('2d');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; createHorizontalBarChart(lowAvailabilityCtx,
+appData.lowAvailability.slice().reverse(), '%');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; // Detail Charts (initially hidden)</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; const availabilityCtx =
+document.getElementById('availabilityDetailChart').getContext('2d');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; availabilityDetailChart =
+createHorizontalBarChart(availabilityCtx, appData.availability.switches, '%');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; const performanceCtx =
+document.getElementById('performanceDetailChart').getContext('2d');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; performanceDetailChart = createHorizontalBarChart(performanceCtx,
+appData.performance.disk, '%');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// --- Update Chart Functions ---</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+function updateDetailChart(chart, data, unit, max) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.data.labels = data.map(d =&gt; d.name.length &gt; 25
+? d.name.substring(0, 25) + '...' : d.name);</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.data.datasets[0].data = data.map(d =&gt; d.value);</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.data.datasets[0].backgroundColor = data.map(d =&gt;
+d.value &lt; 80 ? '#38bdf8' : (d.value &lt; 95 ? '#f59e0b' : '#ef4444'));</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.options.scales.x.max = max;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.options.plugins.tooltip.callbacks.label =
+function(context) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;let label = context.dataset.label || '';</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (label) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label += ': ';</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (context.parsed.x !== null) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label +=
+`${context.parsed.x.toFixed(2)} ${unit}`;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return label;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;};</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;chart.update();</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// --- Event Listeners ---</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const navTabs = document.querySelectorAll('.nav-tab');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const tabContents = document.querySelectorAll('.tab-content');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+navTabs.forEach(tab =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; tab.addEventListener('click', () =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; navTabs.forEach(t =&gt;
+t.classList.remove('active-tab'));</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; tab.classList.add('active-tab');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const target = tab.getAttribute('data-target');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; tabContents.forEach(content =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (content.id === target) {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+content.classList.add('active');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+content.classList.remove('active');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+});</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const availabilityFilterBtns =
+document.querySelectorAll('.filter-btn-availability');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+availabilityFilterBtns.forEach(btn =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; btn.addEventListener('click', () =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; availabilityFilterBtns.forEach(b =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b.classList.remove('bg-sky-600',
+'text-white');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b.classList.add('bg-white',
+'text-slate-700');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; btn.classList.add('bg-sky-600', 'text-white');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; btn.classList.remove('bg-white', 'text-slate-700');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const type = btn.getAttribute('data-type');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; updateDetailChart(availabilityDetailChart,
+appData.availability[type], '%', 100);</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+});</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const performanceFilterBtns =
+document.querySelectorAll('.filter-btn-performance');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+performanceFilterBtns.forEach(btn =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; btn.addEventListener('click', () =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; performanceFilterBtns.forEach(b =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b.classList.remove('bg-sky-600',
+'text-white');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b.classList.add('bg-white',
+'text-slate-700');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; btn.classList.add('bg-sky-600', 'text-white');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; btn.classList.remove('bg-white', 'text-slate-700');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const type = btn.getAttribute('data-type');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const unit = type === 'temp' ? '°C' : '%';</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const max = type === 'temp' ? 70 : 100;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; updateDetailChart(performanceDetailChart,
+appData.performance[type], unit, max);</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+});</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+const accordions = document.querySelectorAll('.accordion-toggle');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+accordions.forEach(accordion =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; accordion.addEventListener('click', () =&gt; {</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const content = accordion.nextElementSibling;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; const icon =
+accordion.querySelector('span:last-child');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; content.classList.toggle('hidden');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; icon.classList.toggle('rotate-180');</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+});</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+// --- Initialize ---</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+initCharts();</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp; &nbsp; &lt;/script&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;/body&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;/html&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>
